@@ -14,7 +14,7 @@ To enable the preprocessor, add anchors to preprocessors section in the project 
 
 ```yaml
 preprocessors:
-    - yaml
+    - anchors
 ```
 
 The preprocessor has just one option:
