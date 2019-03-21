@@ -32,7 +32,7 @@ preprocessors:
 
 ## Usage
 
-Just add an `anchor` tag to some placeand then use an ordinary Markdown-link to this anchor:
+Just add an `anchor` tag to some place and then use an ordinary Markdown-link to this anchor:
 
 ```html
 ...
@@ -50,7 +50,7 @@ You can also place anchors in the middle of paragraph:
 
 ```html
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae illum iusto, sequi magnam consequatur <anchor>middle</anchor> porro iste facere at fugiat est corrupti dolorum quidem sapiente pariatur rem, alias unde! Iste, aliquam.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit.<anchor>middle</anchor> Molestiae illum iusto, sequi magnam consequatur porro iste facere at fugiat est corrupti dolorum quidem sapiente pariatur rem, alias unde! Iste, aliquam.
 
 [Go to the middle of the paragraph](#middle)
 
