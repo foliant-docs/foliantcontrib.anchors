@@ -38,7 +38,8 @@ def convert_to_anchor(reference: str) -> str:
 
 class Preprocessor(BasePreprocessor):
     defaults = {
-        'tex': False
+        'tex': False,
+        'element': '<span id="{anchor}"></span>'
     }
     tags = ('anchor',)
 
@@ -62,8 +63,8 @@ class Preprocessor(BasePreprocessor):
         pattern = r'(<anchor>.+?</anchor>\n)(#)'
         return re.sub(pattern, r'\1\n\2', text)
 
-    def _get_span_anchor(self, anchor: str) -> str:
-        return f'<span id="{anchor}"></span>'
+    def _get_span_anchor(self, anchor: str, options: CombinedOptions) -> str:
+        return options['element'].format(anchor=anchor)
 
     def _get_tex_anchor(self, anchor: str) -> str:
         return r'\hypertarget{%s}{}' % anchor
@@ -87,7 +88,7 @@ class Preprocessor(BasePreprocessor):
             if self.context['target'] == 'pdf' and options['tex']:
                 return self._get_tex_anchor(anchor)
             else:
-                return self._get_span_anchor(anchor)
+                return self._get_span_anchor(anchor, options)
         return self.pattern.sub(_sub, content)
 
     def apply(self):

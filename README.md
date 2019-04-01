@@ -17,13 +17,17 @@ preprocessors:
     - anchors
 ```
 
-The preprocessor has just one option:
+The preprocessor has some options, but most probably you won't need any of them:
 
 ```yaml
 preprocessors:
     - anchors:
+        element: '<span id="{anchor}"></span>'
         tex: False
 ```
+
+`element`
+:   Template of an HTML-element which will be placed instead of the `<anchor>` tag. In this template `{anchor}` will be replaced with the tag contents. Default: `'<span id="{anchor}"></span>'`
 
 `tex`
 :   If this option is `True`, preprocessor will try to use TeX-language anchors: `\hypertarget{anchor}{}`. Default: `False`
@@ -121,4 +125,17 @@ All these are valid anchors:
 <anchor>test'1';</anchor>
 <anchor>якорь</anchor>
 <anchor>👀</anchor>
+```
+
+
+## Notice for Mkdocs
+
+In many Mkdocs themes the top menu lays over the text with absolute position. In this situation all anchors will be hidden by the menu.
+
+Possible solution is to use `element` option. Example config:
+
+```yaml
+preprocessors:
+    - anchors:
+        element: '<span style="display:block; margin:-3.1rem; padding:3.1rem;" id="{anchor}"></span>'
 ```
