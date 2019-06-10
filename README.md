@@ -1,3 +1,5 @@
+![](https://img.shields.io/pypi/v/foliantcontrib.anchors.svg)
+
 # Anchors
 
 Preprocessor which allows to use arbitrary anchors in Foliant documents.
