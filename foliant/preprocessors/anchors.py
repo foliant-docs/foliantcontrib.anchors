@@ -8,6 +8,7 @@ from foliant.preprocessors.utils.combined_options import (CombinedOptions,
                                                           boolean_convertor)
 from foliant.preprocessors.utils.preprocessor_ext import (BasePreprocessorExt,
                                                           allow_fail)
+from foliant.preprocessors.utils.header_anchors import to_id
 
 
 def convert_to_anchor(reference: str) -> str:
@@ -33,11 +34,11 @@ def convert_to_anchor(reference: str) -> str:
     return result.strip(' -')
 
 
-def collect_header_anchors(text: str) -> str:
+def collect_header_anchors(text: str, backend: str) -> str:
     '''collect all headers in text and return dictionary {anchor: header}'''
-    pattern = r'^#+ (.+)'
-    headers = re.findall(pattern, text, re.MULTILINE)
-    return {convert_to_anchor(h): h for h in headers}
+    pattern = re.compile(r'^#{1,6} (.+?)(?=\n)', re.MULTILINE)
+    headers = pattern.findall(text)
+    return {to_id(h, backend): h for h in headers}
 
 
 def fix_headers(text: str) -> str:
@@ -54,6 +55,12 @@ def get_tex_anchor(anchor: str) -> str:
     return r'\hypertarget{%s}{}' % anchor
 
 
+def get_confluence_anchor(anchor: str) -> str:
+    return f'''<raw_confluence><ac:structured-macro ac:macro-id="0" ac:name="anchor" ac:schema-version="1">
+    <ac:parameter ac:name="">{anchor}</ac:parameter>
+  </ac:structured-macro></raw_confluence>'''
+
+
 class Preprocessor(BasePreprocessorExt):
     defaults = {
         'tex': False,
@@ -63,6 +70,8 @@ class Preprocessor(BasePreprocessorExt):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.applied_anchors = []
+        self.header_anchors = []
 
         self.logger = self.logger.getChild('anchors')
 
@@ -86,6 +95,8 @@ class Preprocessor(BasePreprocessorExt):
             self.applied_anchors.append(anchor)
             if self.context['target'] == 'pdf' and options['tex']:
                 return get_tex_anchor(anchor)
+            elif self.context['target'] == 'confluence':
+                return get_confluence_anchor(anchor)
             else:
                 return get_span_anchor(anchor, options)
         return self.pattern.sub(_sub, content)
@@ -100,7 +111,7 @@ class Preprocessor(BasePreprocessorExt):
             content = fix_headers(content)
 
             self.applied_anchors = []
-            self.header_anchors = collect_header_anchors(content)
+            self.header_anchors = collect_header_anchors(content, self.context['backend'])
 
             processed = self.process_anchors(content)
 

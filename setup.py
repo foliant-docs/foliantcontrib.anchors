@@ -15,7 +15,8 @@ setup(
     name='foliantcontrib.anchors',
     description=SHORT_DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    version='1.0.1',
+    long_description_content_type='text/markdown',
+    version='1.0.3',
     author='Daniil Minukhin',
     author_email='ddddsa@gmail.com',
     url='https://github.com/foliant-docs/foliantcontrib.anchors',
@@ -25,7 +26,8 @@ setup(
     install_requires=[
         'foliant>=1.0.8',
         'foliantcontrib.utils.combined_options>=1.0.1',
-        'foliantcontrib.utils.preprocessor_ext>=1.0.2'
+        'foliantcontrib.utils.preprocessor_ext>=1.0.2',
+        'foliantcontrib.utils.header_anchors',
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",

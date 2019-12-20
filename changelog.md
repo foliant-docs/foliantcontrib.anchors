@@ -1,3 +1,9 @@
+# 1.0.3
+
+-    Better regex patterns.
+-    Conflicts are now determined for each backend separately.
+-    Add confluence anchors
+
 # 1.0.2
 
 -    Added preprocessor_ext for better warnings (and better code)
