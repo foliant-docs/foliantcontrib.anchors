@@ -8,7 +8,7 @@ from foliant.preprocessors.utils.combined_options import (CombinedOptions,
                                                           boolean_convertor)
 from foliant.preprocessors.utils.preprocessor_ext import (BasePreprocessorExt,
                                                           allow_fail)
-from foliant.preprocessors.utils.header_anchors import to_id
+from foliant.preprocessors.utils.header_anchors import to_id, is_flat
 
 
 def convert_to_anchor(reference: str) -> str:
@@ -110,7 +110,8 @@ class Preprocessor(BasePreprocessorExt):
 
             content = fix_headers(content)
 
-            self.applied_anchors = []
+            if not is_flat(self.context['backend']):
+                self.applied_anchors = []
             self.header_anchors = collect_header_anchors(content, self.context['backend'])
 
             processed = self.process_anchors(content)
