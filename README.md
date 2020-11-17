@@ -1,4 +1,4 @@
-![](https://img.shields.io/pypi/v/foliantcontrib.anchors.svg)
+[![](https://img.shields.io/pypi/v/foliantcontrib.anchors.svg)](https://pypi.org/project/foliantcontrib.anchors/)  [![](https://img.shields.io/github/v/tag/foliant-docs/foliantcontrib.anchors.svg?label=GitHub)](https://github.com/foliant-docs/foliantcontrib.anchors)
 
 # Anchors
 
@@ -29,7 +29,7 @@ preprocessors:
 ```
 
 `element`
-:   Template of an HTML-element which will be placed instead of the `<anchor>` tag. In this template `{anchor}` will be replaced with the tag contents. Default: `'<span id="{anchor}"></span>'`
+:   Template of an HTML-element which will be placed instead of the `<anchor>` tag. In this template `{anchor}` will be replaced with the tag contents. Ignored when tex is `True`. Default: `'<span id="{anchor}"></span>'`
 
 `tex`
 :   If this option is `True`, preprocessor will try to use TeX-language anchors: `\hypertarget{anchor}{}`. Default: `False`
@@ -91,17 +91,13 @@ Something's wrong with Mike, [look](#Mike)!
 
 You can't use two anchors with the same name in one document.
 
-If preprocessor notices repeating anchors in one md-file it will throw you a warning.
-
-If there are repeating anchors in different md-files and they all go into single pdf or docx, all links will lead to the first one.
+If preprocessor notices repeating anchors in one md-file it will throw you a warning. If you are building a flat document (e.g. PDF or docx with Pandoc), you will receive the warning even if anchor repeats in different md-files.
 
 **3. Anchors may conflict with headers**
 
 Headers are usually assigned anchors of their own. Be careful, your anchors may conflict with them.
 
 Preprocessor will try to detect if you are using anchor which is already taken by the header and warn you in console.
-
-Remember, that header anchors are almost always in lower-case and almost never use special symbols except `-`.
 
 **4. Some symbols are restricted**
 
@@ -134,10 +130,12 @@ All these are valid anchors:
 
 In many Mkdocs themes the top menu lays over the text with absolute position. In this situation all anchors will be hidden by the menu.
 
-Possible solution is to use `element` option. Example config:
+Possible solution is to change the `element` option for your anchors to have a vertical offset. Example config:
 
 ```yaml
 preprocessors:
     - anchors:
         element: '<span style="display:block; margin:-3.1rem; padding:3.1rem;" id="{anchor}"></span>'
 ```
+
+Or, even better, you can assign your anchor a class in `element` and add these rules to your custom mkdocs styles.
