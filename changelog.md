@@ -1,3 +1,8 @@
+# 1.0.5
+
+-    Anchor headings conflicts are now more accurate, because for flat backends are checked for all chapters.
+-    Anchors with illegal characters (list in readme) now will be removed.
+
 # 1.0.4
 
 -    Applied anchors are now checked from all chapters for flat backends.
