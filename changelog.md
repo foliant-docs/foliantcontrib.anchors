@@ -2,6 +2,7 @@
 
 -    Anchor headings conflicts are now more accurate, because for flat backends are checked for all chapters.
 -    Anchors with illegal characters (list in readme) now will be removed.
+-    Preprocessor now can also work with custom ids.
 
 # 1.0.4
 

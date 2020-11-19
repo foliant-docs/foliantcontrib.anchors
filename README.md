@@ -26,6 +26,8 @@ preprocessors:
     - anchors:
         element: '<span id="{anchor}"></span>'
         tex: False
+        anchors: True
+        custom_ids: False
 ```
 
 `element`
@@ -36,7 +38,15 @@ preprocessors:
 
 > Notice, this option will work only with `pdf` target. For all other targets it is set to `False`.
 
+`anchors`
+:   If this options is `True`, anchors tag will be processed. Turn off if you only want to process custom IDs. Default: `True`
+
+`custom_ids`
+:   Since version 1.0.5 preprocessor Anchors can also process Pandoc-style custom IDs. Set this option to `True` to do that. Default: `False`.
+
 ## Usage
+
+**anchors**
 
 Just add an `anchor` tag to some place and then use an ordinary Markdown-link to this anchor:
 
@@ -78,6 +88,37 @@ Cinty| 25  | 42
 ...
 
 Something's wrong with Mike, [look](#Mike)!
+
+```
+
+**custom IDs**
+
+Since version 1.0.5 preprocessor Anchors can also process [Pandoc-style custom heading identifiers](https://pandoc.org/MANUAL.html#heading-identifiers) (previously you had to use [CustomIDs preprocessor](https://foliant-docs.github.io/docs/preprocessors/customids/) for that purpose). To use this function, turn on the `custom_ids` option in your foliant.yml:
+
+```yaml
+preprocessors:
+    anchors:
+        ...
+        custom_ids: True
+```
+
+Then add custom identifiers to your headings:
+
+```
+# My heading {#foo}
+
+Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis non vitae placeat sapiente reprehenderit officia.
+
+```
+
+After processing your text will be look like this:
+
+```
+<span id="custom_id"></span>
+
+# My heading
+
+Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis non vitae placeat sapiente reprehenderit officia.
 
 ```
 
