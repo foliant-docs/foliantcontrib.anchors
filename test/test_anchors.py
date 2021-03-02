@@ -1,7 +1,7 @@
 import os
 import logging
 from unittest import TestCase
-from foliant_test.preprocessor import PreprocessorTestFramework
+from foliant_test.preprocessor import PreprocessorTestFramework, unpack_dir
 
 
 def rel_name(path: str):
@@ -16,29 +16,23 @@ class TestAnchors(TestCase):
         self.ptf = PreprocessorTestFramework('anchors')
 
     def test_general(self):
-        input_dir = rel_name('data/input')
-        expected_dir = rel_name('data/expected_general')
         self.ptf.test_preprocessor(
-            input_dir=input_dir,
-            expected_dir=expected_dir
+            input_mapping=unpack_dir(rel_name('data/input')),
+            expected_mapping=unpack_dir(rel_name('data/expected_general'))
         )
 
     def test_flat(self):
-        input_dir = rel_name('data/input')
-        expected_dir = rel_name('data/expected_flat')
         self.ptf.context['backend'] = 'pandoc'
         self.ptf.test_preprocessor(
-            input_dir=input_dir,
-            expected_dir=expected_dir
+            input_mapping=unpack_dir(rel_name('data/input')),
+            expected_mapping=unpack_dir(rel_name('data/expected_flat'))
         )
 
     def test_custom_ids(self):
-        input_dir = rel_name('data/input')
-        expected_dir = rel_name('data/expected_custom_ids')
         self.ptf.options = {'anchors': True, 'custom_ids': True}
         self.ptf.test_preprocessor(
-            input_dir=input_dir,
-            expected_dir=expected_dir
+            input_mapping=unpack_dir(rel_name('data/input')),
+            expected_mapping=unpack_dir(rel_name('data/expected_custom_ids'))
         )
 
     def test_only_anchors(self):
