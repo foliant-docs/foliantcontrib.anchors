@@ -1,3 +1,7 @@
+# 1.0.6
+
+-    Fix: missing dependency in setup.py
+
 # 1.0.5
 
 -    Anchor headings conflicts are now more accurate, because for flat backends are checked for all chapters.
