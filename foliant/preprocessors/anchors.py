@@ -4,12 +4,14 @@ Arbitrary anchors for Foliant.
 
 import re
 
-from foliant.preprocessors.utils.combined_options import (CombinedOptions, Options,
-                                                          boolean_convertor)
-from foliant.preprocessors.utils.preprocessor_ext import (BasePreprocessorExt,
-                                                          allow_fail)
-from foliant.preprocessors.utils.header_anchors import is_flat, IDGenerator
 from foliant.contrib.chapters import Chapters
+from foliant.contrib.combined_options import CombinedOptions
+from foliant.contrib.combined_options import Options
+from foliant.contrib.combined_options import boolean_convertor
+from foliant.contrib.header_anchors import IDGenerator
+from foliant.contrib.header_anchors import is_flat
+from foliant.preprocessors.utils.preprocessor_ext import BasePreprocessorExt
+from foliant.preprocessors.utils.preprocessor_ext import allow_fail
 
 
 def fix_headers(text: str) -> str:

@@ -1,7 +1,9 @@
-import os
 import logging
+import os
+
+from foliant_test.preprocessor import PreprocessorTestFramework
+from foliant_test.preprocessor import unpack_dir
 from unittest import TestCase
-from foliant_test.preprocessor import PreprocessorTestFramework, unpack_dir
 
 
 def rel_name(path: str):

@@ -1,3 +1,7 @@
+# 1.0.7
+
+-    New utils module.
+
 # 1.0.6
 
 -    Fix: missing dependency in setup.py
